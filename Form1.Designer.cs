@@ -39,16 +39,16 @@
             this.cbRemoveOracleGrants = new System.Windows.Forms.CheckBox();
             this.cbRemoveOraclePartition = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbFilesToDirDirs = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbFilesToDirMasks = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.btExecute = new System.Windows.Forms.Button();
             this.cbxInputEncoding = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbxOutputEncoding = new System.Windows.Forms.ComboBox();
-            this.tbFilesToDirMasks = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbFilesToDirDirs = new System.Windows.Forms.TextBox();
             this.tabPanelOperations.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -67,9 +67,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 13);
+            this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Папка с файлами txt:";
+            this.label1.Text = "Папка с файлами:";
             // 
             // tabPanelOperations
             // 
@@ -105,9 +105,9 @@
             this.cbTrimOracleTableNames.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbTrimOracleTableNames.Location = new System.Drawing.Point(7, 99);
             this.cbTrimOracleTableNames.Name = "cbTrimOracleTableNames";
-            this.cbTrimOracleTableNames.Size = new System.Drawing.Size(247, 17);
+            this.cbTrimOracleTableNames.Size = new System.Drawing.Size(314, 17);
             this.cbTrimOracleTableNames.TabIndex = 6;
-            this.cbTrimOracleTableNames.Text = "Обрезать названия таблиц до 27 символов";
+            this.cbTrimOracleTableNames.Text = "Обрезать названия таблиц до 27 символов  (файлы .tab)";
             this.cbTrimOracleTableNames.UseVisualStyleBackColor = true;
             // 
             // cbRemoveOracleAlters
@@ -117,9 +117,9 @@
             this.cbRemoveOracleAlters.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRemoveOracleAlters.Location = new System.Drawing.Point(7, 76);
             this.cbRemoveOracleAlters.Name = "cbRemoveOracleAlters";
-            this.cbRemoveOracleAlters.Size = new System.Drawing.Size(115, 17);
+            this.cbRemoveOracleAlters.Size = new System.Drawing.Size(182, 17);
             this.cbRemoveOracleAlters.TabIndex = 5;
-            this.cbRemoveOracleAlters.Text = "Удалить альтеры";
+            this.cbRemoveOracleAlters.Text = "Удалить альтеры  (файлы .tab)";
             this.cbRemoveOracleAlters.UseVisualStyleBackColor = true;
             // 
             // cbRemoveOracleIndexes
@@ -129,9 +129,9 @@
             this.cbRemoveOracleIndexes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRemoveOracleIndexes.Location = new System.Drawing.Point(7, 53);
             this.cbRemoveOracleIndexes.Name = "cbRemoveOracleIndexes";
-            this.cbRemoveOracleIndexes.Size = new System.Drawing.Size(116, 17);
+            this.cbRemoveOracleIndexes.Size = new System.Drawing.Size(180, 17);
             this.cbRemoveOracleIndexes.TabIndex = 4;
-            this.cbRemoveOracleIndexes.Text = "Удалить индексы";
+            this.cbRemoveOracleIndexes.Text = "Удалить индексы (файлы .tab)";
             this.cbRemoveOracleIndexes.UseVisualStyleBackColor = true;
             // 
             // cbRemoveOracleCreateInstallFile
@@ -165,9 +165,9 @@
             this.cbRemoveOraclePartition.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRemoveOraclePartition.Location = new System.Drawing.Point(7, 7);
             this.cbRemoveOraclePartition.Name = "cbRemoveOraclePartition";
-            this.cbRemoveOraclePartition.Size = new System.Drawing.Size(119, 17);
+            this.cbRemoveOraclePartition.Size = new System.Drawing.Size(183, 17);
             this.cbRemoveOraclePartition.TabIndex = 0;
-            this.cbRemoveOraclePartition.Text = "Удалить партиции";
+            this.cbRemoveOraclePartition.Text = "Удалить партиции (файлы .tab)";
             this.cbRemoveOraclePartition.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -183,6 +183,43 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Файлы по папкам";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(519, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(86, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Целевые папки";
+            // 
+            // tbFilesToDirDirs
+            // 
+            this.tbFilesToDirDirs.Location = new System.Drawing.Point(518, 23);
+            this.tbFilesToDirDirs.Multiline = true;
+            this.tbFilesToDirDirs.Name = "tbFilesToDirDirs";
+            this.tbFilesToDirDirs.Size = new System.Drawing.Size(444, 390);
+            this.tbFilesToDirDirs.TabIndex = 2;
+            this.tbFilesToDirDirs.Text = "functions\r\npackages\r\nprocedures\r\nsequences\r\nsynonyms\r\ntables\r\ntypes\r\ntriggers\r\nvi" +
+    "ews";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(140, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Маски файлов для отбора";
+            // 
+            // tbFilesToDirMasks
+            // 
+            this.tbFilesToDirMasks.Location = new System.Drawing.Point(6, 23);
+            this.tbFilesToDirMasks.Multiline = true;
+            this.tbFilesToDirMasks.Name = "tbFilesToDirMasks";
+            this.tbFilesToDirMasks.Size = new System.Drawing.Size(444, 390);
+            this.tbFilesToDirMasks.TabIndex = 0;
+            this.tbFilesToDirMasks.Text = "*.fnc\r\n*.pck;*.spc\r\n*.prc\r\n*.seq\r\n*.syn\r\n*.tab\r\n*.tps\r\n*.trg\r\n*.vw;*.mvw";
             // 
             // tabPage3
             // 
@@ -242,43 +279,6 @@
             this.cbxOutputEncoding.Name = "cbxOutputEncoding";
             this.cbxOutputEncoding.Size = new System.Drawing.Size(121, 21);
             this.cbxOutputEncoding.TabIndex = 7;
-            // 
-            // tbFilesToDirMasks
-            // 
-            this.tbFilesToDirMasks.Location = new System.Drawing.Point(6, 23);
-            this.tbFilesToDirMasks.Multiline = true;
-            this.tbFilesToDirMasks.Name = "tbFilesToDirMasks";
-            this.tbFilesToDirMasks.Size = new System.Drawing.Size(444, 390);
-            this.tbFilesToDirMasks.TabIndex = 0;
-            this.tbFilesToDirMasks.Text = "*.fnc\r\n*.pck;*.spc\r\n*.prc\r\n*.seq\r\n*.syn\r\n*.tab\r\n*.tps\r\n*.trg\r\n*.vw;*.mvw";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(140, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Маски файлов для отбора";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(519, 7);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Целевые папки";
-            // 
-            // tbFilesToDirDirs
-            // 
-            this.tbFilesToDirDirs.Location = new System.Drawing.Point(518, 23);
-            this.tbFilesToDirDirs.Multiline = true;
-            this.tbFilesToDirDirs.Name = "tbFilesToDirDirs";
-            this.tbFilesToDirDirs.Size = new System.Drawing.Size(444, 390);
-            this.tbFilesToDirDirs.TabIndex = 2;
-            this.tbFilesToDirDirs.Text = "functions\r\npackages\r\nprocedures\r\nsequences\r\nsynonyms\r\ntables\r\ntypes\r\ntriggers\r\nvi" +
-    "ews";
             // 
             // Form1
             // 

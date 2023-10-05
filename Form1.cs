@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,29 +25,36 @@ namespace TextFilesProcessor
             {
                 var inputFilesEncoding = cbxInputEncoding.Text;
                 var outputFilesEncoding = cbxOutputEncoding.Text;
-                foreach (var file in FilesUtils.GetFilesNamesInDir(tbDir.Text))
+                var dirs = FilesUtils.GetDirsWithFilesInParentDir(tbDir.Text);
+                foreach (var dir in dirs)
                 {
-                    var fileText = FilesUtils.GetText(file, inputFilesEncoding);
-                    if (cbRemoveOraclePartition.Checked)
-                        fileText = fileText.RemoveOraclePartitions();
-                    if (cbRemoveOracleGrants.Checked)
-                        fileText = fileText.RemoveOracleGrants();
-                    if (cbRemoveOracleIndexes.Checked)
-                        fileText = fileText.RemoveOracleIndexes();
-                    if (cbRemoveOracleAlters.Checked)
-                        fileText = fileText.RemoveOracleAlter();
-                    if (cbTrimOracleTableNames.Checked)
-                        fileText = fileText.TrimTo27OracleTableNames(5, '#');
-                    FilesUtils.SaveText(file, fileText, outputFilesEncoding);
-                }
+                    foreach (var file in FilesUtils.GetFilesNamesInDir(dir))
+                    {
+                        var fileExtension = Path.GetExtension(file);
+                        var isTabExtension = fileExtension.ToUpper() == ".TAB";
+                        var fileText = FilesUtils.GetText(file, inputFilesEncoding);
+                        if (cbRemoveOraclePartition.Checked && isTabExtension)
+                            fileText = fileText.RemoveOraclePartitions();
+                        if (cbRemoveOracleGrants.Checked)
+                            fileText = fileText.RemoveOracleGrants();
+                        if (cbRemoveOracleIndexes.Checked && isTabExtension)
+                            fileText = fileText.RemoveOracleIndexes();
+                        if (cbRemoveOracleAlters.Checked && isTabExtension)
+                            fileText = fileText.RemoveOracleAlter();
+                        if (cbTrimOracleTableNames.Checked && isTabExtension)
+                            fileText = fileText.TrimTo27OracleTableNames(5, '#');
+                        FilesUtils.SaveText(file, fileText, outputFilesEncoding);
+                    }
 
-                if (cbRemoveOracleCreateInstallFile.Checked)
-                {
-                    var installFileContent =
-                        OracleUtils.GetInstallFileContent(FilesUtils.GetFilesNamesInDir(tbDir.Text));
-                    FilesUtils.SaveText(OracleUtils.GetInstallFileName(tbDir.Text), installFileContent,
-                        outputFilesEncoding);
+                    if (cbRemoveOracleCreateInstallFile.Checked)
+                    {
+                        var installFileContent =
+                            OracleUtils.GetInstallFileContent(FilesUtils.GetFilesNamesInDir(dir));
+                        FilesUtils.SaveText(OracleUtils.GetInstallFileName(dir), installFileContent,
+                            outputFilesEncoding);
+                    }
                 }
+                
             }
             else if (selectedTab==1)
             {
