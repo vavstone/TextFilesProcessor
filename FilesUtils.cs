@@ -32,10 +32,12 @@ namespace TextFilesProcessor
 
         public static List<string> GetDirsWithFilesInParentDir(string parentDir)
         {
-            //List<string> result  = new List<string>();
-            return Directory.GetDirectories(parentDir, "*", SearchOption.AllDirectories).
-                Where(c=>Directory.GetFiles(c).Length!=0).ToList();
-            
+            List<string> result  = new List<string>();
+            if (Directory.GetFiles(parentDir).Length!=0)
+                result.Add(parentDir);
+            result.AddRange(Directory.GetDirectories(parentDir, "*", SearchOption.AllDirectories).
+                Where(c => Directory.GetFiles(c).Length != 0).ToList());
+            return result;
         }
 
     }

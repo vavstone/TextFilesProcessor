@@ -30,23 +30,45 @@ namespace TextFilesProcessor
                 {
                     foreach (var file in FilesUtils.GetFilesNamesInDir(dir))
                     {
+                        bool needRewrite = false;
                         var fileExtension = Path.GetExtension(file);
                         var isTabExtension = fileExtension.ToUpper() == ".TAB";
                         var fileText = FilesUtils.GetText(file, inputFilesEncoding);
                         if (cbRemoveOraclePartition.Checked && isTabExtension)
+                        {
                             fileText = fileText.RemoveOraclePartitions();
+                            needRewrite = true;
+                        }
                         if (cbRemoveOracleGrants.Checked)
+                        {
                             fileText = fileText.RemoveOracleGrants();
+                            needRewrite = true;
+                        }
                         if (cbRemoveOracleIndexes.Checked && isTabExtension)
+                        {
                             fileText = fileText.RemoveOracleIndexes();
+                            needRewrite = true;
+                        }
                         if (cbRemoveOracleAlters.Checked && isTabExtension)
+                        {
                             fileText = fileText.RemoveOracleAlter();
+                            needRewrite = true;
+                        }
                         if (cbTrimOracleTableNames.Checked && isTabExtension)
+                        {
                             fileText = fileText.TrimTo27OracleTableNames(5, '#');
-                        FilesUtils.SaveText(file, fileText, outputFilesEncoding);
+                            needRewrite = true;
+                        }
+                        if (cbTrimOracleTableColNames.Checked && isTabExtension)
+                        {
+                            fileText = fileText.TrimTo27OracleTableColumnNames(5, '#');
+                            needRewrite = true;
+                        }
+                        if (needRewrite)
+                            FilesUtils.SaveText(file, fileText, outputFilesEncoding);
                     }
 
-                    if (cbRemoveOracleCreateInstallFile.Checked)
+                    if (cbOracleCreateInstallFile.Checked)
                     {
                         var installFileContent =
                             OracleUtils.GetInstallFileContent(FilesUtils.GetFilesNamesInDir(dir));

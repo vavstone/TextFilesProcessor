@@ -35,7 +35,7 @@
             this.cbTrimOracleTableNames = new System.Windows.Forms.CheckBox();
             this.cbRemoveOracleAlters = new System.Windows.Forms.CheckBox();
             this.cbRemoveOracleIndexes = new System.Windows.Forms.CheckBox();
-            this.cbRemoveOracleCreateInstallFile = new System.Windows.Forms.CheckBox();
+            this.cbOracleCreateInstallFile = new System.Windows.Forms.CheckBox();
             this.cbRemoveOracleGrants = new System.Windows.Forms.CheckBox();
             this.cbRemoveOraclePartition = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -49,6 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbxOutputEncoding = new System.Windows.Forms.ComboBox();
+            this.cbTrimOracleTableColNames = new System.Windows.Forms.CheckBox();
             this.tabPanelOperations.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -60,7 +61,7 @@
             this.tbDir.Name = "tbDir";
             this.tbDir.Size = new System.Drawing.Size(865, 20);
             this.tbDir.TabIndex = 0;
-            this.tbDir.Text = "e:\\TextFilesProcessor\\FilesToFolders\\";
+            this.tbDir.Text = "c:\\InstallDigTwin2\\";
             // 
             // label1
             // 
@@ -84,10 +85,11 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cbTrimOracleTableColNames);
             this.tabPage1.Controls.Add(this.cbTrimOracleTableNames);
             this.tabPage1.Controls.Add(this.cbRemoveOracleAlters);
             this.tabPage1.Controls.Add(this.cbRemoveOracleIndexes);
-            this.tabPage1.Controls.Add(this.cbRemoveOracleCreateInstallFile);
+            this.tabPage1.Controls.Add(this.cbOracleCreateInstallFile);
             this.tabPage1.Controls.Add(this.cbRemoveOracleGrants);
             this.tabPage1.Controls.Add(this.cbRemoveOraclePartition);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -134,17 +136,17 @@
             this.cbRemoveOracleIndexes.Text = "Удалить индексы (файлы .tab)";
             this.cbRemoveOracleIndexes.UseVisualStyleBackColor = true;
             // 
-            // cbRemoveOracleCreateInstallFile
+            // cbOracleCreateInstallFile
             // 
-            this.cbRemoveOracleCreateInstallFile.AutoSize = true;
-            this.cbRemoveOracleCreateInstallFile.Checked = true;
-            this.cbRemoveOracleCreateInstallFile.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRemoveOracleCreateInstallFile.Location = new System.Drawing.Point(7, 122);
-            this.cbRemoveOracleCreateInstallFile.Name = "cbRemoveOracleCreateInstallFile";
-            this.cbRemoveOracleCreateInstallFile.Size = new System.Drawing.Size(152, 17);
-            this.cbRemoveOracleCreateInstallFile.TabIndex = 3;
-            this.cbRemoveOracleCreateInstallFile.Text = "Создать файл \"install.sql\"";
-            this.cbRemoveOracleCreateInstallFile.UseVisualStyleBackColor = true;
+            this.cbOracleCreateInstallFile.AutoSize = true;
+            this.cbOracleCreateInstallFile.Checked = true;
+            this.cbOracleCreateInstallFile.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbOracleCreateInstallFile.Location = new System.Drawing.Point(7, 145);
+            this.cbOracleCreateInstallFile.Name = "cbOracleCreateInstallFile";
+            this.cbOracleCreateInstallFile.Size = new System.Drawing.Size(152, 17);
+            this.cbOracleCreateInstallFile.TabIndex = 3;
+            this.cbOracleCreateInstallFile.Text = "Создать файл \"install.sql\"";
+            this.cbOracleCreateInstallFile.UseVisualStyleBackColor = true;
             // 
             // cbRemoveOracleGrants
             // 
@@ -219,7 +221,8 @@
             this.tbFilesToDirMasks.Name = "tbFilesToDirMasks";
             this.tbFilesToDirMasks.Size = new System.Drawing.Size(444, 390);
             this.tbFilesToDirMasks.TabIndex = 0;
-            this.tbFilesToDirMasks.Text = "*.fnc\r\n*.pck;*.spc\r\n*.prc\r\n*.seq\r\n*.syn\r\n*.tab\r\n*.tps\r\n*.trg\r\n*.vw;*.mvw";
+            this.tbFilesToDirMasks.Text = "*.fnc\r\n*.pck;*.spc;*.bdy\r\n*.prc\r\n*.seq\r\n*.syn\r\n*.tab\r\n*.tps;*.typ\r\n*.trg\r\n*.vw;*." +
+    "mvw";
             // 
             // tabPage3
             // 
@@ -280,6 +283,18 @@
             this.cbxOutputEncoding.Size = new System.Drawing.Size(121, 21);
             this.cbxOutputEncoding.TabIndex = 7;
             // 
+            // cbTrimOracleTableColNames
+            // 
+            this.cbTrimOracleTableColNames.AutoSize = true;
+            this.cbTrimOracleTableColNames.Checked = true;
+            this.cbTrimOracleTableColNames.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbTrimOracleTableColNames.Location = new System.Drawing.Point(7, 122);
+            this.cbTrimOracleTableColNames.Name = "cbTrimOracleTableColNames";
+            this.cbTrimOracleTableColNames.Size = new System.Drawing.Size(364, 17);
+            this.cbTrimOracleTableColNames.TabIndex = 7;
+            this.cbTrimOracleTableColNames.Text = "Обрезать названия столбцов таблиц до 27 символов  (файлы .tab)";
+            this.cbTrimOracleTableColNames.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,7 +335,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbxOutputEncoding;
-        private System.Windows.Forms.CheckBox cbRemoveOracleCreateInstallFile;
+        private System.Windows.Forms.CheckBox cbOracleCreateInstallFile;
         private System.Windows.Forms.CheckBox cbRemoveOracleIndexes;
         private System.Windows.Forms.CheckBox cbRemoveOracleAlters;
         private System.Windows.Forms.CheckBox cbTrimOracleTableNames;
@@ -329,6 +344,7 @@
         private System.Windows.Forms.TextBox tbFilesToDirDirs;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbFilesToDirMasks;
+        private System.Windows.Forms.CheckBox cbTrimOracleTableColNames;
     }
 }
 

@@ -126,6 +126,11 @@ set define on";
                 return null;
             var startString = "create table ";
             var indexOfCreateTable = text.IndexOf(startString);
+            if (indexOfCreateTable < 0)
+            {
+                startString = "create global temporary table ";
+            }
+            indexOfCreateTable = text.IndexOf(startString);
             if (indexOfCreateTable > -1)
             {
                 var indexOfBracket = text.IndexOf("(", indexOfCreateTable);
@@ -135,7 +140,7 @@ set define on";
                     var tableName = text.Substring(indexOfCreateTable+ startString.Length, strLength).Trim();
                     if (tableName.Length > maxObjectNameLength)
                     {
-                        var newTableName = GetNewTableName(tableName, startPosToReplace, replaceSymbol);
+                        var newTableName = GetNewObjectName(tableName, startPosToReplace, replaceSymbol);
                         return text.Replace(tableName, newTableName);
                     }
                 }
@@ -143,7 +148,62 @@ set define on";
             return text;
         }
 
-        static string GetNewTableName(string tableName,int startPosToReplace, char replaceSymbol)
+        public static string TrimTo27OracleTableColumnNames(this string text, int startPosToReplace, char replaceSymbol)
+        {
+            if (text == null)
+                return null;
+            var colNamesToReplace = new Dictionary<string, string>();
+            var startString = "create table ";
+            var indexOfCreateTable = text.IndexOf(startString);
+            if (indexOfCreateTable < 0)
+            {
+                startString = "create global temporary table ";
+            }
+            indexOfCreateTable = text.IndexOf(startString);
+            if (indexOfCreateTable > -1)
+            {
+                var indexOfBracket = text.IndexOf("(", indexOfCreateTable);
+                if (indexOfBracket > -1)
+                {
+                    var indexOfSemicolon = text.IndexOf(";", indexOfBracket);
+                    var indexOfNewString = indexOfBracket;
+                    while (true)
+                    {
+                        indexOfNewString = text.IndexOf(Environment.NewLine, indexOfNewString+1);
+                        if (indexOfNewString > -1 && indexOfNewString< indexOfSemicolon-5)
+                        {
+                            var indexOfType =
+                                FindNearestStringIndex(text, new List<string> {"NUMBER","DATE","VARCHAR2", "TIMESTAMP" }, indexOfNewString);
+                            if (indexOfType > -1)
+                            {
+                                var colname = text.Substring(indexOfNewString, indexOfType - indexOfNewString).Trim();
+                                if (colname.Length > maxObjectNameLength)
+                                {
+                                    var newColName = GetNewObjectName(colname, startPosToReplace, replaceSymbol);
+                                    colNamesToReplace[colname] = newColName;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            var newText = text;
+            foreach (var colName in colNamesToReplace.Keys)
+            {
+                var newColName = colNamesToReplace[colName];
+                newText = newText.Replace(" " + colName + " ", " " + newColName + " ");
+                newText = newText.Replace("." + colName + Environment.NewLine, "." + newColName + Environment.NewLine);
+            }
+            return newText;
+        }
+
+        static string GetNewObjectName(string tableName,int startPosToReplace, char replaceSymbol)
         {
             if (tableName.Length <= maxObjectNameLength) return tableName;
             var diff = tableName.Length - maxObjectNameLength;
@@ -151,6 +211,18 @@ set define on";
                                replaceSymbol +
                                tableName.Substring(startPosToReplace + 1 + diff);
             return newTableName;
+        }
+
+        static int FindNearestStringIndex(string sourceText, List<string> stringsToFind, int startPosToFind)
+        {
+            var minIndex = -1;
+            foreach (var str in stringsToFind)
+            {
+                var curIndex = sourceText.IndexOf(str, startPosToFind);
+                if (curIndex!=-1 && (minIndex == -1 || curIndex < minIndex))
+                    minIndex = curIndex;
+            }
+            return minIndex;
         }
     }
 }
