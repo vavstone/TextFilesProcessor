@@ -39,31 +39,37 @@ namespace TextFilesProcessor
                             fileText = fileText.RemoveOraclePartitions();
                             needRewrite = true;
                         }
+
                         if (cbRemoveOracleGrants.Checked)
                         {
                             fileText = fileText.RemoveOracleGrants();
                             needRewrite = true;
                         }
+
                         if (cbRemoveOracleIndexes.Checked && isTabExtension)
                         {
                             fileText = fileText.RemoveOracleIndexes();
                             needRewrite = true;
                         }
+
                         if (cbRemoveOracleAlters.Checked && isTabExtension)
                         {
                             fileText = fileText.RemoveOracleAlter();
                             needRewrite = true;
                         }
+
                         if (cbTrimOracleTableNames.Checked && isTabExtension)
                         {
                             fileText = fileText.TrimTo27OracleTableNames(5, '#');
                             needRewrite = true;
                         }
+
                         if (cbTrimOracleTableColNames.Checked && isTabExtension)
                         {
                             fileText = fileText.TrimTo27OracleTableColumnNames(5, '#');
                             needRewrite = true;
                         }
+
                         if (needRewrite)
                             FilesUtils.SaveText(file, fileText, outputFilesEncoding);
                     }
@@ -76,9 +82,9 @@ namespace TextFilesProcessor
                             outputFilesEncoding);
                     }
                 }
-                
+
             }
-            else if (selectedTab==1)
+            else if (selectedTab == 1)
             {
                 var dirs = FilesUtils.GetDirsWithFilesInParentDir(tbDir.Text);
                 var settings = GetFilesToDirSettings();
@@ -87,25 +93,52 @@ namespace TextFilesProcessor
                     FilesToFoldersUtils.MoveFilesToDirsByMask(dir, settings);
                 }
             }
-
-            MessageBox.Show("Готово!");
-        }
-
-        Dictionary<string, string> GetFilesToDirSettings()
-        {
-            var res = new Dictionary<string, string>();
-            var masks = tbFilesToDirMasks.Text.Split('\r');
-            var dirs = tbFilesToDirDirs.Text.Split('\r');
-            for (var i=0;i<masks.Length;i++)
+            //ZIP
+            else if (selectedTab == 2)
             {
-                var mask = masks[i].Trim();
-                if (dirs.Length > i)
+                var isZip = rbZip.Checked;
+                var filePostfix = isZip ? "_zipped" : "_unzipped";
+                var dirs = FilesUtils.GetDirsWithFilesInParentDir(tbDir.Text);
+                foreach (var dir in dirs)
                 {
-                    var dir = dirs[i].Trim();
-                    res[mask.Trim()] = dir;
+                    foreach (var file in FilesUtils.GetFilesNamesInDir(dir))
+                    {
+                        var fileOnlyName = Path.GetFileNameWithoutExtension(file);
+                        var fileOnlyPath = Path.GetDirectoryName(file);
+                        var fileExt = Path.GetExtension(file);
+                        var newFileOnlyName = fileOnlyName + filePostfix;
+                        var newFileFullName = Path.Combine(fileOnlyPath, newFileOnlyName + fileExt);
+                        var fileContent = FilesUtils.GetText(file, null);
+                        var newFileContent = "";
+                        if (!isZip)
+                            newFileContent = ZipHelper.DecompressString(fileContent);
+                        else
+                            newFileContent = ZipHelper.CompressString(fileContent);
+                        FilesUtils.SaveText(newFileFullName, newFileContent, null);
+
+                    }
                 }
+
+                MessageBox.Show("Готово!");
             }
-            return res;
+
+            Dictionary<string, string> GetFilesToDirSettings()
+            {
+                var res = new Dictionary<string, string>();
+                var masks = tbFilesToDirMasks.Text.Split('\r');
+                var dirs = tbFilesToDirDirs.Text.Split('\r');
+                for (var i = 0; i < masks.Length; i++)
+                {
+                    var mask = masks[i].Trim();
+                    if (dirs.Length > i)
+                    {
+                        var dir = dirs[i].Trim();
+                        res[mask.Trim()] = dir;
+                    }
+                }
+
+                return res;
+            }
         }
     }
 }
