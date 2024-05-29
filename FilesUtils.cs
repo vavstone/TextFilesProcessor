@@ -40,5 +40,23 @@ namespace TextFilesProcessor
             return result;
         }
 
+        public static string GetUniqueTxtFileName(string parentDir)
+        {
+            string fileNameFormat = "file_{0}{1}.txt";
+            var dt = DateTime.Now;
+            var fileName = string.Format(fileNameFormat, dt.ToString("yyyy-MM-dd_HH_mm_ss"), "");
+            if (!File.Exists(Path.Combine(parentDir, fileName)))
+                return fileName;
+            var addNumber = 1;
+            while (true)
+            {
+                fileName = string.Format(fileNameFormat, dt.ToString("yyyy-MM-dd_HH_mm_ss"), "_"+addNumber);
+                if (!File.Exists(Path.Combine(parentDir, fileName)))
+                    return fileName;
+                addNumber += 1;
+            }
+
+        }
+
     }
 }

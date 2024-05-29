@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -68,6 +70,83 @@ namespace TextFilesProcessor
         }
 
         /// <summary>
+        /// Перевод в верхний регистр названий полей в скрипте создания комментов, например "comment on column BUF_TRF_R018_RKT.enforcepay  is 'Взыскано';" -> "comment on column BUF_TRF_R018_RKT.ENFORCEPAY  is 'Взыскано'";
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string UpperColNamesInComments(this string text)
+        {
+            if (text == null)
+                return null;
+            StringBuilder tmpText = new StringBuilder();
+            var startSymbols = "comment on column ";
+            var strIs = " is ";
+            using (var reader = new StringReader(text))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var newLine = line;
+                    if (line.StartsWith(startSymbols))
+                    {
+                        var indexOfComma = line.IndexOf(".");
+                        if (indexOfComma > -1)
+                        {
+                            var indexOfStrIs = line.IndexOf(strIs);
+                            if (indexOfStrIs > -1)
+                            {
+                                newLine =
+                                    line.Substring(0, indexOfComma + 1) +
+                                    line.Substring(indexOfComma + 1, indexOfStrIs - indexOfComma - 1).ToUpper() +
+                                    line.Substring(indexOfStrIs);
+                            }
+                        }
+                    }
+                    tmpText.AppendLine(newLine);
+                }
+            }
+            return tmpText.ToString();
+        }
+
+        /// <summary>
+        /// Перевод в верхний регистр первой буквы в скрипте создания комментов, например "comment on column BUF_TRF_R018_RKT.G07 is 'номер ДТ';" -> "comment on column BUF_TRF_R018_RKT.G07 is 'Номер ДТ';";
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string UpperFirstLetterInComments(this string text)
+        {
+            if (text == null)
+                return null;
+            StringBuilder tmpText = new StringBuilder();
+            var startSymbols = "comment on ";
+            var strIs = " is '";
+            using (var reader = new StringReader(text))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var newLine = line;
+                    if (line.StartsWith(startSymbols))
+                    {
+                        var indexOfstrIs = line.IndexOf(strIs);
+                        if (indexOfstrIs > -1)
+                        {
+                            
+                                newLine =
+                                    line.Substring(0, indexOfstrIs + strIs.Length) +
+                                    line.Substring(indexOfstrIs + strIs.Length, 1).ToUpper() +
+                                    line.Substring(indexOfstrIs + strIs.Length + 1);
+                            
+                        }
+                    }
+                    tmpText.AppendLine(newLine);
+                }
+            }
+            return tmpText.ToString();
+        }
+
+
+        /// <summary>
         /// Удаление последовательностей символов, начинающихся с новой строки и завершающихся точкой с запятой
         /// </summary>
         /// <param name="text"></param>
@@ -96,23 +175,23 @@ namespace TextFilesProcessor
             return tmpText;
         }
 
-        public static string GetInstallFileContent(List<string> filesToExecute)
+        public static string GetInstallFileContent(string dir)
         {
+            var filesToExecute = FilesUtils.GetFilesNamesInDir(dir);
             string template =
-                @"set define off
-spool install.log
-
-{0}
+                @"spool install.log
+DEFINE RootPath = '{0}'
+{1}
 prompt Done
-spool off
-set define on";
+spool off";
             string add = "";
             foreach (var file in filesToExecute)
             {
-                add += "prompt Executing " + Path.GetFileName(file) + Environment.NewLine;
-                add += "@@" + file + Environment.NewLine;
+                var fileName = Path.GetFileName(file);
+                add += "prompt Executing " + fileName + Environment.NewLine;
+                add += "@@&&RootPath\\" + fileName + Environment.NewLine;
             }
-            return string.Format(template, add);
+            return string.Format(template, dir.TrimEnd('\\'), add);
         }
 
         public static string GetInstallFileName(string dir)

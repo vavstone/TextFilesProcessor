@@ -70,6 +70,18 @@ namespace TextFilesProcessor
                             needRewrite = true;
                         }
 
+                        if (cbUpperColNamesInComments.Checked)
+                        {
+                            fileText = fileText.UpperColNamesInComments();
+                            needRewrite = true;
+                        }
+
+                        if (cbUpperFirstLetterInComments.Checked)
+                        {
+                            fileText = fileText.UpperFirstLetterInComments();
+                            needRewrite = true;
+                        }
+
                         if (needRewrite)
                             FilesUtils.SaveText(file, fileText, outputFilesEncoding);
                     }
@@ -77,7 +89,7 @@ namespace TextFilesProcessor
                     if (cbOracleCreateInstallFile.Checked)
                     {
                         var installFileContent =
-                            OracleUtils.GetInstallFileContent(FilesUtils.GetFilesNamesInDir(dir));
+                            OracleUtils.GetInstallFileContent(dir);
                         FilesUtils.SaveText(OracleUtils.GetInstallFileName(dir), installFileContent,
                             outputFilesEncoding);
                     }
@@ -118,9 +130,29 @@ namespace TextFilesProcessor
 
                     }
                 }
-
-                MessageBox.Show("Готово!");
             }
+            //Other
+            else if (selectedTab == 3)
+            {
+                if (cbMergeTextFiles.Checked)
+                {
+                    var inputFilesEncoding = cbxInputEncoding.Text;
+                    var outputFilesEncoding = cbxOutputEncoding.Text;
+                    var dirs2 = FilesUtils.GetDirsWithFilesInParentDir(tbDir.Text);
+                    var resText = new StringBuilder();
+                    foreach (var dir in dirs2)
+                    {
+                        foreach (var file in FilesUtils.GetFilesNamesInDir(dir))
+                        {
+                            var fileText = FilesUtils.GetText(file, inputFilesEncoding);
+                            resText.AppendLine(fileText);
+                        }
+                    }
+                    var newFileName = FilesUtils.GetUniqueTxtFileName(tbDir.Text);
+                        FilesUtils.SaveText(Path.Combine(tbDir.Text,newFileName), resText.ToString(), outputFilesEncoding);
+                }
+            }
+            MessageBox.Show("Готово!");
 
             Dictionary<string, string> GetFilesToDirSettings()
             {
