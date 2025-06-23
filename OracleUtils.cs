@@ -61,7 +61,7 @@ namespace TextFilesProcessor
 
         public static string RemoveOracleIndexes(this string text)
         {
-            return text.RemoveFromSymbolsToSemicolon("create index ");
+            return text.RemoveFromSymbolsToSemicolon("create index ").RemoveFromSymbolsToSemicolon("create bitmap index ");
         }
 
         public static string RemoveOracleAlter(this string text)

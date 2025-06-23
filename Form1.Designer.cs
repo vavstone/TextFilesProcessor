@@ -51,18 +51,23 @@
             this.rbUnzip = new System.Windows.Forms.RadioButton();
             this.rbZip = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cbMergeTextFiles = new System.Windows.Forms.CheckBox();
             this.btExecute = new System.Windows.Forms.Button();
             this.cbxInputEncoding = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbxOutputEncoding = new System.Windows.Forms.ComboBox();
-            this.cbMergeTextFiles = new System.Windows.Forms.CheckBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbOutOracleGitDir = new System.Windows.Forms.TextBox();
+            this.cbxGetDBGitGrantes = new System.Windows.Forms.CheckBox();
             this.tabPanelOperations.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbDir
@@ -88,6 +93,7 @@
             this.tabPanelOperations.Controls.Add(this.tabPage2);
             this.tabPanelOperations.Controls.Add(this.tabPage4);
             this.tabPanelOperations.Controls.Add(this.tabPage3);
+            this.tabPanelOperations.Controls.Add(this.tabPage5);
             this.tabPanelOperations.Location = new System.Drawing.Point(13, 82);
             this.tabPanelOperations.Name = "tabPanelOperations";
             this.tabPanelOperations.SelectedIndex = 0;
@@ -328,6 +334,18 @@
             this.tabPage3.Text = "Разное";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // cbMergeTextFiles
+            // 
+            this.cbMergeTextFiles.AutoSize = true;
+            this.cbMergeTextFiles.Checked = true;
+            this.cbMergeTextFiles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMergeTextFiles.Location = new System.Drawing.Point(14, 15);
+            this.cbMergeTextFiles.Name = "cbMergeTextFiles";
+            this.cbMergeTextFiles.Size = new System.Drawing.Size(266, 17);
+            this.cbMergeTextFiles.TabIndex = 1;
+            this.cbMergeTextFiles.Text = "Объединить текстовые файлы из папки в один";
+            this.cbMergeTextFiles.UseVisualStyleBackColor = true;
+            // 
             // btExecute
             // 
             this.btExecute.Location = new System.Drawing.Point(17, 533);
@@ -378,17 +396,45 @@
             this.cbxOutputEncoding.Size = new System.Drawing.Size(121, 21);
             this.cbxOutputEncoding.TabIndex = 7;
             // 
-            // cbMergeTextFiles
+            // tabPage5
             // 
-            this.cbMergeTextFiles.AutoSize = true;
-            this.cbMergeTextFiles.Checked = true;
-            this.cbMergeTextFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMergeTextFiles.Location = new System.Drawing.Point(14, 15);
-            this.cbMergeTextFiles.Name = "cbMergeTextFiles";
-            this.cbMergeTextFiles.Size = new System.Drawing.Size(266, 17);
-            this.cbMergeTextFiles.TabIndex = 1;
-            this.cbMergeTextFiles.Text = "Объединить текстовые файлы из папки в один";
-            this.cbMergeTextFiles.UseVisualStyleBackColor = true;
+            this.tabPage5.Controls.Add(this.cbxGetDBGitGrantes);
+            this.tabPage5.Controls.Add(this.label6);
+            this.tabPage5.Controls.Add(this.tbOutOracleGitDir);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(971, 419);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Oracle Git";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 18);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(119, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Папка с результатом:";
+            // 
+            // tbOutOracleGitDir
+            // 
+            this.tbOutOracleGitDir.Location = new System.Drawing.Point(143, 15);
+            this.tbOutOracleGitDir.Name = "tbOutOracleGitDir";
+            this.tbOutOracleGitDir.Size = new System.Drawing.Size(819, 20);
+            this.tbOutOracleGitDir.TabIndex = 2;
+            this.tbOutOracleGitDir.Text = "e:\\tmp\\2023-12-20\\1\\only_text_test_res\\";
+            // 
+            // cbxGetDBGitGrantes
+            // 
+            this.cbxGetDBGitGrantes.AutoSize = true;
+            this.cbxGetDBGitGrantes.Location = new System.Drawing.Point(9, 59);
+            this.cbxGetDBGitGrantes.Name = "cbxGetDBGitGrantes";
+            this.cbxGetDBGitGrantes.Size = new System.Drawing.Size(206, 17);
+            this.cbxGetDBGitGrantes.TabIndex = 4;
+            this.cbxGetDBGitGrantes.Text = "Вытащить гранты из структуры БД";
+            this.cbxGetDBGitGrantes.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -416,6 +462,8 @@
             this.groupBox1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -452,6 +500,10 @@
         private System.Windows.Forms.CheckBox cbUpperColNamesInComments;
         private System.Windows.Forms.CheckBox cbUpperFirstLetterInComments;
         private System.Windows.Forms.CheckBox cbMergeTextFiles;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.CheckBox cbxGetDBGitGrantes;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbOutOracleGitDir;
     }
 }
 

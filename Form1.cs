@@ -145,11 +145,19 @@ namespace TextFilesProcessor
                         foreach (var file in FilesUtils.GetFilesNamesInDir(dir))
                         {
                             var fileText = FilesUtils.GetText(file, inputFilesEncoding);
-                            resText.AppendLine(fileText);
+                            resText.Append(fileText);
                         }
                     }
                     var newFileName = FilesUtils.GetUniqueTxtFileName(tbDir.Text);
                         FilesUtils.SaveText(Path.Combine(tbDir.Text,newFileName), resText.ToString(), outputFilesEncoding);
+                }
+            }
+            //Oracle Git обработка 
+            else if (selectedTab == 4)
+            {
+                if (cbxGetDBGitGrantes.Checked)
+                {
+                    GrantSelector.Process(tbDir.Text, tbOutOracleGitDir.Text);
                 }
             }
             MessageBox.Show("Готово!");
