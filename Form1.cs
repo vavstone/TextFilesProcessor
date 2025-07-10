@@ -151,6 +151,10 @@ namespace TextFilesProcessor
                     var newFileName = FilesUtils.GetUniqueTxtFileName(tbDir.Text);
                         FilesUtils.SaveText(Path.Combine(tbDir.Text,newFileName), resText.ToString(), outputFilesEncoding);
                 }
+                if (cbRemoveIntermediateDoubles.Checked)
+                {
+                    IntermediateDoublesRemover.Process(tbDir.Text, tbTab3Result.Text);
+                }
             }
             //Oracle Git обработка 
             else if (selectedTab == 4)

@@ -52,15 +52,18 @@
             this.rbZip = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.cbMergeTextFiles = new System.Windows.Forms.CheckBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.cbxGetDBGitGrantes = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbOutOracleGitDir = new System.Windows.Forms.TextBox();
             this.btExecute = new System.Windows.Forms.Button();
             this.cbxInputEncoding = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbxOutputEncoding = new System.Windows.Forms.ComboBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tbOutOracleGitDir = new System.Windows.Forms.TextBox();
-            this.cbxGetDBGitGrantes = new System.Windows.Forms.CheckBox();
+            this.cbRemoveIntermediateDoubles = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbTab3Result = new System.Windows.Forms.TextBox();
             this.tabPanelOperations.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -76,7 +79,7 @@
             this.tbDir.Name = "tbDir";
             this.tbDir.Size = new System.Drawing.Size(865, 20);
             this.tbDir.TabIndex = 0;
-            this.tbDir.Text = "e:\\tmp\\2023-12-20\\1\\only_text_test\\";
+            this.tbDir.Text = "e:\\tmp\\4\\res\\";
             // 
             // label1
             // 
@@ -326,6 +329,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.tbTab3Result);
+            this.tabPage3.Controls.Add(this.cbRemoveIntermediateDoubles);
             this.tabPage3.Controls.Add(this.cbMergeTextFiles);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -337,14 +343,52 @@
             // cbMergeTextFiles
             // 
             this.cbMergeTextFiles.AutoSize = true;
-            this.cbMergeTextFiles.Checked = true;
-            this.cbMergeTextFiles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbMergeTextFiles.Location = new System.Drawing.Point(14, 15);
             this.cbMergeTextFiles.Name = "cbMergeTextFiles";
             this.cbMergeTextFiles.Size = new System.Drawing.Size(266, 17);
             this.cbMergeTextFiles.TabIndex = 1;
             this.cbMergeTextFiles.Text = "Объединить текстовые файлы из папки в один";
             this.cbMergeTextFiles.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.cbxGetDBGitGrantes);
+            this.tabPage5.Controls.Add(this.label6);
+            this.tabPage5.Controls.Add(this.tbOutOracleGitDir);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(971, 419);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Oracle Git";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // cbxGetDBGitGrantes
+            // 
+            this.cbxGetDBGitGrantes.AutoSize = true;
+            this.cbxGetDBGitGrantes.Location = new System.Drawing.Point(9, 59);
+            this.cbxGetDBGitGrantes.Name = "cbxGetDBGitGrantes";
+            this.cbxGetDBGitGrantes.Size = new System.Drawing.Size(206, 17);
+            this.cbxGetDBGitGrantes.TabIndex = 4;
+            this.cbxGetDBGitGrantes.Text = "Вытащить гранты из структуры БД";
+            this.cbxGetDBGitGrantes.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 18);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(119, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Папка с результатом:";
+            // 
+            // tbOutOracleGitDir
+            // 
+            this.tbOutOracleGitDir.Location = new System.Drawing.Point(143, 15);
+            this.tbOutOracleGitDir.Name = "tbOutOracleGitDir";
+            this.tbOutOracleGitDir.Size = new System.Drawing.Size(819, 20);
+            this.tbOutOracleGitDir.TabIndex = 2;
+            this.tbOutOracleGitDir.Text = "e:\\tmp\\2023-12-20\\1\\only_text_test_res\\";
             // 
             // btExecute
             // 
@@ -396,45 +440,32 @@
             this.cbxOutputEncoding.Size = new System.Drawing.Size(121, 21);
             this.cbxOutputEncoding.TabIndex = 7;
             // 
-            // tabPage5
+            // cbRemoveIntermediateDoubles
             // 
-            this.tabPage5.Controls.Add(this.cbxGetDBGitGrantes);
-            this.tabPage5.Controls.Add(this.label6);
-            this.tabPage5.Controls.Add(this.tbOutOracleGitDir);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(971, 419);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Oracle Git";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.cbRemoveIntermediateDoubles.AutoSize = true;
+            this.cbRemoveIntermediateDoubles.Location = new System.Drawing.Point(14, 38);
+            this.cbRemoveIntermediateDoubles.Name = "cbRemoveIntermediateDoubles";
+            this.cbRemoveIntermediateDoubles.Size = new System.Drawing.Size(226, 17);
+            this.cbRemoveIntermediateDoubles.TabIndex = 2;
+            this.cbRemoveIntermediateDoubles.Text = "Удалить промежуточные дубли файлов";
+            this.cbRemoveIntermediateDoubles.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // label7
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 18);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(119, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Папка с результатом:";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 64);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(119, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Папка с результатом:";
             // 
-            // tbOutOracleGitDir
+            // tbTab3Result
             // 
-            this.tbOutOracleGitDir.Location = new System.Drawing.Point(143, 15);
-            this.tbOutOracleGitDir.Name = "tbOutOracleGitDir";
-            this.tbOutOracleGitDir.Size = new System.Drawing.Size(819, 20);
-            this.tbOutOracleGitDir.TabIndex = 2;
-            this.tbOutOracleGitDir.Text = "e:\\tmp\\2023-12-20\\1\\only_text_test_res\\";
-            // 
-            // cbxGetDBGitGrantes
-            // 
-            this.cbxGetDBGitGrantes.AutoSize = true;
-            this.cbxGetDBGitGrantes.Location = new System.Drawing.Point(9, 59);
-            this.cbxGetDBGitGrantes.Name = "cbxGetDBGitGrantes";
-            this.cbxGetDBGitGrantes.Size = new System.Drawing.Size(206, 17);
-            this.cbxGetDBGitGrantes.TabIndex = 4;
-            this.cbxGetDBGitGrantes.Text = "Вытащить гранты из структуры БД";
-            this.cbxGetDBGitGrantes.UseVisualStyleBackColor = true;
+            this.tbTab3Result.Location = new System.Drawing.Point(149, 61);
+            this.tbTab3Result.Name = "tbTab3Result";
+            this.tbTab3Result.Size = new System.Drawing.Size(813, 20);
+            this.tbTab3Result.TabIndex = 4;
+            this.tbTab3Result.Text = "e:\\tmp\\4\\out\\";
             // 
             // Form1
             // 
@@ -504,6 +535,9 @@
         private System.Windows.Forms.CheckBox cbxGetDBGitGrantes;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbOutOracleGitDir;
+        private System.Windows.Forms.CheckBox cbRemoveIntermediateDoubles;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbTab3Result;
     }
 }
 
