@@ -153,7 +153,7 @@ namespace TextFilesProcessor
                 }
                 if (cbRemoveIntermediateDoubles.Checked)
                 {
-                    IntermediateDoublesRemover.Process(tbDir.Text, tbTab3Result.Text);
+                    IntermediateDoublesRemover.Process(tbDir.Text, tbxRemoveDoublesMask.Text);
                 }
             }
             //Oracle Git обработка 

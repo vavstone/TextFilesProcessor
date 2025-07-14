@@ -9,27 +9,22 @@ namespace TextFilesProcessor
 {
     public static class IntermediateDoublesRemover
     {
-        public static void Process(string sourceFolder, string targetFolder)
+        public static void Process(string sourceFolder, string searchMask)
         {
             ExcelPackage.License.SetNonCommercialOrganization("My Noncommercial organization");
 
-            // Создание целевой папки при необходимости
-            if (!Directory.Exists(targetFolder))
-            {
-                Directory.CreateDirectory(targetFolder);
-            }
 
             try
             {
                 // Получение и сортировка XLSX-файлов по дате создания
                 var files = new DirectoryInfo(sourceFolder)
-                    .GetFiles("*.xlsx")
+                    .GetFiles(searchMask + "*.xlsx")
                     .OrderBy(f => f.CreationTime)
                     .ToList();
 
                 if (files.Count == 0)
                 {
-                    MessageBox.Show("В исходной папке не найдено XLSX-файлов.");
+                    MessageBox.Show("В исходной папке не найдено соответствующих маске XLSX-файлов.");
                     return;
                 }
 
@@ -51,14 +46,15 @@ namespace TextFilesProcessor
                 }
                 groups.Add(currentGroup);
 
-                // Копирование файлов в целевую папку
+                var cnt = 0;
+
                 foreach (var group in groups)
                 {
-                    group.CopyFirstAndLast(targetFolder);
+                    cnt += group.RemoveIntermediateDoubles();
                 }
 
-                //MessageBox.Show($"Обработано: {files.Count} файлов, создано {groups.Sum(g => g.FileCount)} групп");
-                //MessageBox.Show("Копирование завершено успешно!");
+                MessageBox.Show(
+                    $"Найдено {groups.Sum(c => c.FileCount)} файлов в {groups.Count} группах. Удалено: {cnt} файлов.");
             }
             catch (Exception ex)
             {
@@ -72,17 +68,19 @@ namespace TextFilesProcessor
     {
         public FileInfo FirstFile { get; }
         public FileInfo LastFile { get; private set; }
-        public int FileCount { get; private set; } = 1;
+        public int FileCount { get; private set; } = 0;
+        List<FileInfo> files = new List<FileInfo>();
 
         public FileGroup(FileInfo file)
         {
             FirstFile = file;
-            LastFile = file;
+            AddFile(file);
         }
 
         public void AddFile(FileInfo file)
         {
             LastFile = file;
+            files.Add(file);
             FileCount++;
         }
 
@@ -102,6 +100,18 @@ namespace TextFilesProcessor
             {
                 file.CopyTo(destPath);
             }
+        }
+
+        public int RemoveIntermediateDoubles()
+        {
+            var cnt = 0;
+            foreach (FileInfo file in files.Where(c=>c!=FirstFile && c!=LastFile))
+            {
+                file.Delete();
+                cnt++;
+            }
+
+            return cnt;
         }
     }
 

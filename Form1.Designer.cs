@@ -51,6 +51,8 @@
             this.rbUnzip = new System.Windows.Forms.RadioButton();
             this.rbZip = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbRemoveIntermediateDoubles = new System.Windows.Forms.CheckBox();
             this.cbMergeTextFiles = new System.Windows.Forms.CheckBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.cbxGetDBGitGrantes = new System.Windows.Forms.CheckBox();
@@ -61,9 +63,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cbxOutputEncoding = new System.Windows.Forms.ComboBox();
-            this.cbRemoveIntermediateDoubles = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tbTab3Result = new System.Windows.Forms.TextBox();
+            this.tbxRemoveDoublesMask = new System.Windows.Forms.TextBox();
             this.tabPanelOperations.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -329,8 +329,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.tbxRemoveDoublesMask);
             this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.tbTab3Result);
             this.tabPage3.Controls.Add(this.cbRemoveIntermediateDoubles);
             this.tabPage3.Controls.Add(this.cbMergeTextFiles);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -339,6 +339,25 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Разное";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 64);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Шаблон поиска:";
+            // 
+            // cbRemoveIntermediateDoubles
+            // 
+            this.cbRemoveIntermediateDoubles.AutoSize = true;
+            this.cbRemoveIntermediateDoubles.Location = new System.Drawing.Point(14, 38);
+            this.cbRemoveIntermediateDoubles.Name = "cbRemoveIntermediateDoubles";
+            this.cbRemoveIntermediateDoubles.Size = new System.Drawing.Size(226, 17);
+            this.cbRemoveIntermediateDoubles.TabIndex = 2;
+            this.cbRemoveIntermediateDoubles.Text = "Удалить промежуточные дубли файлов";
+            this.cbRemoveIntermediateDoubles.UseVisualStyleBackColor = true;
             // 
             // cbMergeTextFiles
             // 
@@ -440,32 +459,13 @@
             this.cbxOutputEncoding.Size = new System.Drawing.Size(121, 21);
             this.cbxOutputEncoding.TabIndex = 7;
             // 
-            // cbRemoveIntermediateDoubles
+            // tbxRemoveDoublesMask
             // 
-            this.cbRemoveIntermediateDoubles.AutoSize = true;
-            this.cbRemoveIntermediateDoubles.Location = new System.Drawing.Point(14, 38);
-            this.cbRemoveIntermediateDoubles.Name = "cbRemoveIntermediateDoubles";
-            this.cbRemoveIntermediateDoubles.Size = new System.Drawing.Size(226, 17);
-            this.cbRemoveIntermediateDoubles.TabIndex = 2;
-            this.cbRemoveIntermediateDoubles.Text = "Удалить промежуточные дубли файлов";
-            this.cbRemoveIntermediateDoubles.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 64);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(119, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Папка с результатом:";
-            // 
-            // tbTab3Result
-            // 
-            this.tbTab3Result.Location = new System.Drawing.Point(149, 61);
-            this.tbTab3Result.Name = "tbTab3Result";
-            this.tbTab3Result.Size = new System.Drawing.Size(813, 20);
-            this.tbTab3Result.TabIndex = 4;
-            this.tbTab3Result.Text = "e:\\tmp\\4\\out\\";
+            this.tbxRemoveDoublesMask.Location = new System.Drawing.Point(106, 61);
+            this.tbxRemoveDoublesMask.Name = "tbxRemoveDoublesMask";
+            this.tbxRemoveDoublesMask.Size = new System.Drawing.Size(813, 20);
+            this.tbxRemoveDoublesMask.TabIndex = 6;
+            this.tbxRemoveDoublesMask.Text = "Report_Прослеживаемость. Статистика";
             // 
             // Form1
             // 
@@ -537,7 +537,7 @@
         private System.Windows.Forms.TextBox tbOutOracleGitDir;
         private System.Windows.Forms.CheckBox cbRemoveIntermediateDoubles;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tbTab3Result;
+        private System.Windows.Forms.TextBox tbxRemoveDoublesMask;
     }
 }
 
